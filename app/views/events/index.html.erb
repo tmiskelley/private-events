@@ -1,0 +1,10 @@
+<h1>Events</h1>
+
+<hr><br>
+
+<% @events.each do |event| %>
+  <div style="padding-left: 1rem; border: 1px solid black;">
+    <h2> <%= event.event_name %> </h2>
+    <p><%= event.description %></p>
+  </div>
+<% end %>
