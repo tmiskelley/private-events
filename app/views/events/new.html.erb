@@ -1,0 +1,31 @@
+<h1>Create Event</h1>
+
+<%= form_for @event do |f| %>
+  <% if @event.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(@event.errors.count, "error") %> Prohibited this event from being saved:</h2>
+    </div>
+
+    <ul>
+      <% @event.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :event_name, 'Event Name:' %>
+    <%= f.text_field :event_name %>
+  </div>
+  <div>
+    <%= f.label :description, 'Summary:' %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label :event_date, 'Date:' %>
+    <%= f.date_field :event_date %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

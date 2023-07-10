@@ -1,0 +1,5 @@
+<% if current_user %>
+  <br><%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+<% else %>
+  <br><%= link_to 'Log in', new_user_session_path %>
+<% end %>
