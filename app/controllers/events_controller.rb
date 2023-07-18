@@ -7,6 +7,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @attendees = find_attendees
   end
 
   def new
@@ -28,5 +29,16 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:event_date, :event_name, :description)
+  end
+
+  def find_attendees
+    attendees = []
+    event_attendees = EventAttendee.where(event_id: @event.id)
+
+    event_attendees.each do |record|
+      attendees << User.find(record.user_id).username
+    end
+
+    attendees
   end
 end

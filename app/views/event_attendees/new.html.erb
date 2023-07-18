@@ -1,0 +1,9 @@
+<% event = Event.find(@event_id) %>
+<h1><%= event.event_name %> sign-up</h1>
+
+<p>Click the button below to confirm your attendence!</p>
+
+<%= form_with model: @event_attendee, url: event_attendees_path do |f| %>
+  <%= f.hidden_field :event_id, value: @event_id %>
+  <%= f.submit 'Confirm attendence' %>
+<% end %>
