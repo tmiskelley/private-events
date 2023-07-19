@@ -2,11 +2,6 @@
 
 <hr><br>
 
-<% @events.each do |event| %>
-  <div style="padding-left: 1rem; border: 1px solid black;">
-    <h2> <%= event.event_name %> </h2>
-    <%= link_to 'Show details', event_path(event) %><br><br>
-  </div>
-<% end %>
+<%= render partial: 'shared/event_partial' %>
 
 <%= render partial: 'shared/login_partial' %>
