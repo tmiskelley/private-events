@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
   validates :username, presence: true
 
   has_many :events
-  has_many :event_attendees
+  has_many :event_attendees, dependent: :destroy
   has_many :attended_events, through: :event_attendees, source: :event
 end

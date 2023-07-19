@@ -8,6 +8,7 @@
   <div style="padding-left: 1rem; border: 1px solid black;">
     <h2><%= event.event_name %></h2>
     <%= link_to 'Show details', event_path(event) %><br><br>
+    <%= button_to 'Delete Event', event_path(event), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this event?' } %><br>
   </div>
 <% end %>
 

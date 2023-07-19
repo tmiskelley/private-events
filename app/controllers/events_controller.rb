@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
   
   def index
     @events = Event.all
@@ -27,10 +28,42 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      flash[:notice] = "Event updated successfully!"
+      redirect_to @event
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy
+
+    flash[:notice] = "Event deleted successfully"
+    redirect_to root_path
+  end
+
   private
 
   def event_params
     params.require(:event).permit(:event_date, :event_name, :description)
+  end
+
+  def authorize_user
+    event = Event.find(params[:id])
+
+    unless current_user.id == event.user_id
+      flash[:alert] = "You do not have permission to modifiy this event"
+      redirect_to root_path
+    end
   end
 
   def find_attendees
