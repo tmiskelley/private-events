@@ -2,9 +2,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show]
   
   def show
-    @user = current_user
-    @created_events = @user.events
+    @created_events = current_user.events
     @events = attending_events
+    @upcoming_events = @events.select { |event| event.event_date >= Date.today }
+    @past_events = @events.select { |event| event.event_date < Date.today }
   end
 
   def destroy
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
 
   def attending_events
     events = []
-    my_events = EventAttendee.where(user_id: @user.id)
+    my_events = EventAttendee.where(user_id: current_user.id)
 
     my_events.each do |event|
       events << Event.find(event.event_id)

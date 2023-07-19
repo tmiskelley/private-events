@@ -1,6 +1,25 @@
-<% @events.each do |event| %>
-  <div style="padding-left: 1rem; border: 1px solid black;">
-    <h2><%= event.event_name %></h2>
-    <%= link_to 'Show details', event_path(event) %><br><br>
-  </div>
+<% if @past_events.any? %>
+  <h3>Past events</h3>
+
+  <hr><br>
+
+  <% @past_events.each do |event| %>
+    <div style="padding-left: 1rem; border: 1px solid black;">
+      <h3><%= event.event_name %></h3>
+      <%= link_to 'Show details', event_path(event) %><br><br>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @upcoming_events.any? %>
+  <h3>Upcoming Events</h3>
+
+  <hr><br>
+
+  <% @upcoming_events.each do |event| %>
+    <div style="padding-left: 1rem; border: 1px solid black;">
+      <h3><%= event.event_name %></h3>
+      <%= link_to 'Show details', event_path(event) %><br><br>
+    </div>
+  <% end %>
 <% end %>
